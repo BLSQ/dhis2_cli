@@ -1,4 +1,4 @@
-#DHIS2_CLI
+# DHIS2_CLI
 
 ## Intro  
 
@@ -91,11 +91,11 @@ Copy organisation units from one DHIS2 to another
                      --destination https://user:password@test-dhis2.org
 ```
 
-#Contributing
+# Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/BLSQ/dhis2. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
-#License
+# License
 
 The gem is available as open source under the terms of the MIT License.
 
