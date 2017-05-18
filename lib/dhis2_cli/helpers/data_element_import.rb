@@ -12,9 +12,32 @@ class DataElementImportHelper
 
     elements = candidates(all_existing_elements, data_element_file.data_elements)
 
+    associate_data_elements_data_set(elements)
+    export_values(elements)
+
     to_csv(elements)
     elements
   end
+
+  def associate_data_elements_data_set(elements)
+    data_sets_names = elements.map(&:data_set_name).uniq
+
+    existing_data_sets = @dhis2.data_sets.list(page_size: 100_000)
+    datasetsb_by_name = index_by(existing_data_sets, :display_name)
+
+    data_sets_names.each do |data_set_name|
+      next if datasetsb_by_name[data_set_name]
+
+      puts "creating dataset #{data_set_name}"
+    end
+
+    byebug
+  end
+
+  def export_values(elements)
+
+  end
+
 
   def all_existing_elements
     @dhis2.data_elements.list(page_size: 100_000)
