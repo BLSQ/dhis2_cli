@@ -1,4 +1,4 @@
-require_relative '../helpers/heroku_setup_helper'
+# require_relative '../helpers/heroku_setup_helper'
 require 'thor'
 require 'colorize'
 

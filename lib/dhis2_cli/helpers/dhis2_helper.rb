@@ -4,15 +4,47 @@ require 'dhis2'
 
 # DHIS2 helper class
 class DHIS2Helper
+  attr_reader :url
+
   def initialize(uri)
     uri = URI.parse(uri)
-    @dhis2 = Dhis2::Client.new(url: "#{uri.scheme}://#{uri.host}/#{uri.path}",
+    @url = "#{uri.scheme}://#{uri.host}/#{uri.path}"
+    @dhis2 = Dhis2::Client.new(url: url,
                                user: uri.user,
                                password: uri.password)
   end
 
   def max_level
     levels.size
+  end
+
+  def find_group_by_name(name)
+    @dhis2.organisation_unit_groups.find_by(name: name)
+  end
+
+  def find_or_create_group(name)
+    group = @dhis2.organisation_unit_groups.find_by(name: name)
+
+    if group
+      puts "Existing group: #{group.name} with #{group.organisation_units.size} units will be updated"
+    else
+      puts "Group #{name} does not exist, creating"
+
+      if create_group(name)
+        group = @dhis2.organisation_unit_groups.find_by(name: name)
+        puts "Group #{name} created."
+      else
+        puts "Unable to create group #{name}. Exiting.".red
+        exit
+      end
+    end
+
+    group
+  end
+
+  def create_group(name)
+    org_unit_groups = { name: name, short_name: name[0..20] }
+    @dhis2.organisation_unit_groups.create(org_unit_groups).success?
   end
 
   def levels
