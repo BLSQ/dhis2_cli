@@ -41,16 +41,7 @@ class OrgUnit < Thor
 
     puts "#{org_units.size} units found to be added"
 
-    org_units.each_with_index do |ou_id, index|
-      puts "Adding organisation unit #{ou_id} (#{index + 1}/#{org_units.size})"
-      begin
-        group.add_relation("organisationUnits", ou_id)
-      rescue
-        puts "Organisation unit #{ou_id} not found, passing"
-      end
-    end
-
-    group = dhis2_dest.find_group_by_name(group_name)
+    group = dhis2_dest.add_to_group(group, org_units)
     puts "Done. Group #{group.name} has now #{group.organisation_units.size} units (from #{org_unit_number_before}).".green
   end
 end

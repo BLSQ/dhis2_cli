@@ -22,6 +22,19 @@ class DHIS2Helper
     @dhis2.organisation_unit_groups.find_by(name: name)
   end
 
+  def add_to_group(group, org_units)
+    org_units.each_with_index do |ou_id, index|
+      puts "Adding organisation unit #{ou_id} (#{index + 1}/#{org_units.size})"
+      begin
+        group.add_relation("organisationUnits", ou_id)
+      rescue
+        puts "Organisation unit #{ou_id} not found, passing"
+      end
+    end
+
+    dhis2_dest.find_group_by_name(group_name)
+  end
+
   def find_or_create_group(name)
     group = @dhis2.organisation_unit_groups.find_by(name: name)
 
