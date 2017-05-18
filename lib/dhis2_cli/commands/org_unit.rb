@@ -16,12 +16,12 @@ class OrgUnit < Thor
       puts "Importing level #{level}"
       puts dhis2_dest.create_org_unit(source_org_units).inspect
     end
+  end
 
   desc 'import', 'import'
   option :file, required: true
   def import
     # chargement du header meta
-    end
   end
 
   desc 'add-to-group', 'add org units to a given group (creating it if not existing)'

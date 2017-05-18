@@ -32,7 +32,7 @@ class DHIS2Helper
       end
     end
 
-    dhis2_dest.find_group_by_name(group_name)
+    find_group_by_name(group.name)
   end
 
   def find_or_create_group(name)
