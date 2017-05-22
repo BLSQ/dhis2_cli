@@ -23,21 +23,40 @@ class DataElementImportHelper
     data_sets_names = elements.map(&:data_set_name).uniq
 
     existing_data_sets = @dhis2.data_sets.list(page_size: 100_000)
-    datasetsb_by_name = index_by(existing_data_sets, :display_name)
+    datasets_by_name = index_by(existing_data_sets, :display_name)
 
     data_sets_names.each do |data_set_name|
-      next if datasetsb_by_name[data_set_name]
+      next if datasets_by_name[data_set_name]
 
       puts "creating dataset #{data_set_name}"
+
+      status = @dhis2.data_sets.create(name: data_set_name)
+      puts JSON.pretty_generate(status.raw_status)
     end
 
-    byebug
+    existing_data_sets = @dhis2.data_sets.list(page_size: 100_000, fields: :all)
+    datasets_by_name = index_by(existing_data_sets, :display_name)
+
+    elements_by_dataset = elements.group_by(&:data_set_name)
+
+    data_sets_names.each do |data_set_name|
+      dataset = datasets_by_name[data_set_name]
+      desired_data_elements = elements_by_dataset[data_set_name]
+      desired_data_elements.each do |de|
+        de.dhis2_dataset_id = dataset.id
+      end
+
+      missing_ids = desired_data_elements.map(&:dhis2_id) - dataset.data_set_elements.map { |dse| dse['data_element']['id'] }
+
+      missing_ids.each do |de_dhis2_id|
+        dataset.data_set_elements.push('data_element' => { 'id' => de_dhis2_id })
+      end
+      puts "adding elements #{missing_ids} to dataset #{dataset.id}"
+      dataset.update
+    end
   end
 
-  def export_values(elements)
-
-  end
-
+  def export_values(elements); end
 
   def all_existing_elements
     @dhis2.data_elements.list(page_size: 100_000)
@@ -45,7 +64,7 @@ class DataElementImportHelper
 
   def to_csv(elements)
     csv_string = CSV.generate do |csv|
-      headers = %i[dhis2_id data_set_name de_name value ignored]
+      headers = %i[dhis2_id data_set_name dhis2_dataset_id de_name value ignored]
       csv << headers
       elements.each do |to_create|
         csv << headers.map { |k| to_create[k] }
@@ -66,7 +85,7 @@ class DataElementImportHelper
       }
     end
     puts "to create : #{to_create.size}"
-    to_create.each_slice(10) do |slice|
+    to_create.each_slice(1) do |slice|
       status = @dhis2.data_elements.create(slice)
       puts JSON.pretty_generate(status.raw_status)
     end
