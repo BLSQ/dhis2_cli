@@ -44,6 +44,25 @@ quantities =
    # 32 Bonus d'Amélioration de Qualité (BAQ)
    { label: 'Petite chirurgie - indigent', claimed: 'MI81fnsHqzb', validated: 'tjd10veh8Ve', index: 28 }]
 
+quality_pma_activities = [
+   { label: "General indicators",verified:"OAgtfejG2Zz", index: 0}
+   { label: "Quaterly Business Plan",verified:"kkky2iQfdM8", index: 1},
+   { label: "Financial Section",verified:"pC74MJeRbjf", index: 2},
+   { label: "Hygiene and sanitation",verified:"UUBBZtJMvMn", index: 3},
+   { label: "Outpatient Consultations/Emergency",verified:"AAjdXukGliE", index: 4},
+   { label: "Family Planning",verified:"LLaIVemldk0", index: 5},
+   { label: "Laboratory",verified:"DULnZ1AfrSQ", index: 6},
+   { label: "Wards/Observation room",verified:"zTv2hXMmgb9", index: 7},
+   { label: "Drug/Pharmacy management",verified:"YV8QNFcwGB7", index: 8},
+   { label: "Tracer drugs",verified:"pNqoEtMX1XW", index: 9},
+   { label: "Maternity",verified:"utBGQijstR2", index: 10},
+   { label: "Minor Surgery",verified:"DSZkFKvUCOA", index: 11},
+   { label: "Tuberculosis",verified:"eYzLUYxs6ab", index: 12},
+   { label: "Vaccination",verified:"KJKcwVoQca2", index: 13},
+   { label: "Ante-Natal Consultation (ANC)",verified:"p6E0gDyeyrl", index: 14},
+   { label: "Fight against HIV/AIDS",verified:"mmHJHOVKcQG", index: 15}
+]
+
 MONTHS = {
   'Decembre' => '12',
   'November' => '11',
