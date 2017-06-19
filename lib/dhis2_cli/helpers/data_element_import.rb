@@ -64,7 +64,7 @@ class DataElementImportHelper
 
   def to_csv(elements)
     csv_string = CSV.generate do |csv|
-      headers = %i[dhis2_id data_set_name dhis2_dataset_id de_name value ignored]
+      headers = %i(dhis2_id data_set_name dhis2_dataset_id de_name value ignored)
       csv << headers
       elements.each do |to_create|
         csv << headers.map { |k| to_create[k] }
