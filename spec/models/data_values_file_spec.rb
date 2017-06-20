@@ -3,16 +3,16 @@ require_relative '../../lib/dhis2_cli'
 describe DataValuesFile do
   let(:filepath) { './spec/fixtures/data_values_template.csv' }
   let(:csv) { CSV.read(filepath, 'r') }
-  let(:data_values_file) { DataValuesFile.new(filepath, csv.first, csv.drop(1)) }
+  subject { DataValuesFile.new(filepath, csv.first, csv.drop(1)) }
 
   describe 'data_element_headers' do
-    it 'does return the data elements headers' do
-      expect(data_values_file.data_element_headers).to eq %w(de_2016_abc321 de_2014Q1_xyz321)
+    it 'does returns the data elements headers' do
+      expect(subject.data_element_headers).to eq %w(de_2016_abc321 de_2014Q1_xyz321)
     end
   end
 
   describe 'data_values_lines' do
-    it 'does return the list of data values with the values and the org unit id' do
+    it 'does returns the list of data values with the values and the org unit id' do
       expected_data_values_lines = [OpenStruct.new(external_path: nil,
                                                    dhis2_path: '/pM/Jk/ls/lvPW1gVZxnz',
                                                    level_1: 'Belgique',
@@ -31,18 +31,18 @@ describe DataValuesFile do
                                                    de_2016_abc321: '221',
                                                    de_2014Q1_xyz321: '421',
                                                    line_number: 2)]
-      expect(data_values_file.data_values_lines).to eq expected_data_values_lines
+      expect(subject.data_values_lines).to eq expected_data_values_lines
     end
   end
 
   describe 'import' do
-    it 'does return the list of data values to be imported' do
+    it 'does returns the list of data values to be imported' do
       expected_data_values = [{ period: '2016', dataElement: 'abc321', value: '324', orgUnit: 'lvPW1gVZxnz' },
                               { period: '2014Q1', dataElement: 'xyz321', value: '443', orgUnit: 'lvPW1gVZxnz' },
                               { period: '2016', dataElement: 'abc321', value: '221', orgUnit: 'CKJmfUJ4mSO' },
                               { period: '2014Q1', dataElement: 'xyz321', value: '421', orgUnit: 'CKJmfUJ4mSO' }]
 
-      expect(data_values_file.data_values).to eq expected_data_values
+      expect(subject.data_values).to eq expected_data_values
     end
   end
 end

@@ -2,7 +2,6 @@ class OrgUnitCandidate
   attr_reader :name, :level, :entity, :external_id, :children
   attr_accessor :parent, :dhis2_id
 
-  
   def initialize(entity, level_header)
     @entity = entity
     @name = entity[level_header]
@@ -24,16 +23,16 @@ class OrgUnitCandidate
   end
 
   def add_child(child)
-    @children.add(child) 
+    @children.add(child)
     child.parent = self
   end
-  
-  def dhis2_path()
-     create_path(self) 
-  end 
+
+  def dhis2_path
+    create_path(self)
+  end
 
   def create_path(candidate)
-    return candidate.dhis2_id unless candidate.parent 
+    return candidate.dhis2_id unless candidate.parent
     create_path(candidate.parent) + '/' + candidate.dhis2_id
   end
 end
