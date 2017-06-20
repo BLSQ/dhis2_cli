@@ -25,7 +25,7 @@ class Heroku < Thor
   desc 'install', 'Create Heroku app with name and install dhis2 instance'
   option :name, required: true, desc: 'name of the application on heroku'
   option :port, default: '80', desc: 'tcp port on which dhis2 will respond'
-  option :db_plan, default: 'hobby-dev', desc: 'heroku postgres database plan'
+  option :db_plan, default: 'hobby-basic', desc: 'heroku postgres database plan'
   option :version, default: '2.25', desc: 'version of dhis2 to install'
   option :country_code, desc: 'country code used for dhis2 assets'
   option :sql_file, desc: 'sql file to be loaded'
