@@ -14,7 +14,6 @@ require_relative 'dhis2_cli/models/import/data_element_file'
 require_relative 'dhis2_cli/models/import/data_values_file'
 require_relative 'dhis2_cli/models/import/org_unit_candidate'
 
-
 module Dhis2Cli
   # Startup class
   class Cli < Thor

@@ -6,9 +6,9 @@ class DataValue < Thor
   option :dest, required: true
   def import
     lines = CSV.read(options[:file], 'r')
-    headers = lines.shift 
-    data_values_file = DataValuesFile.new(options[:dest],headers,lines) 
+    headers = lines.shift
+    data_values_file = DataValuesFile.new(options[:dest], headers, lines)
     data_values_helper = DataValuesHelper.new options[:dest]
-    data_values_helper.import data_values_file 
+    data_values_helper.import data_values_file
   end
-end 
+end

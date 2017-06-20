@@ -25,7 +25,7 @@ class DataValuesFile
   def data_values
     data_values_lines.flat_map do |data_value_line|
       data_element_headers.map do |data_element|
-        data_value = Hash[[:period, :dataElement].zip data_element.split('_').drop(1)]
+        data_value = Hash[%i[period dataElement].zip data_element.split('_').drop(1)]
         data_value[:value] = data_value_line[data_element]
         data_value[:orgUnit] = data_value_line[:dhis2_path].split('/').drop(1).last
         data_value

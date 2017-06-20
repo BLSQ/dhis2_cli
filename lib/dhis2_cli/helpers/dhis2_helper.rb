@@ -66,8 +66,8 @@ class DHIS2Helper
 
   def org_units(level)
     @client.organisation_units.list(filter: "level:eq:#{level}",
-                                    fields: %w(id displayName shortName
-                                               openingDate parent),
+                                    fields: %w[id displayName shortName
+                                               openingDate parent],
                                     page_size: 100_000)
   end
 
