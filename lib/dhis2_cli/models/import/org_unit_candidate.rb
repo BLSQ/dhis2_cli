@@ -6,8 +6,8 @@ class OrgUnitCandidate
     @entity = entity
     @name = entity[level_header]
     @level = level_header.gsub('level_', '')
-    @children = Set.new
     @facility = is_facility
+    @children = Set.new
     @opening_date = entity[:opening_date] if @facility
   end
 

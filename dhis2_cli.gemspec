@@ -29,4 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.6'
   spec.add_development_dependency 'faker', '~> 1.6'
   spec.add_development_dependency 'byebug', '~> 9.0'
+  spec.add_development_dependency 'pronto'
+  spec.add_development_dependency 'pronto-rubocop'
+  spec.add_development_dependency 'pronto-flay'
 end

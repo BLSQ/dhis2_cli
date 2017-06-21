@@ -50,6 +50,11 @@ the available namespace and their corresponding commands.
         Commands:
           dhis2_cli.rb org_unit copy --dest=DEST --source=SOURCE  # copy orgunits from one instance to another
           dhis2_cli.rb org_unit help [COMMAND]                    # Describe subcommands or one specific subcommand  
+
+  dhis2_cli datavalue #Perform data values maintenance operations
+        Commands:
+          dhis2_cli data_value help [COMMAND]                  # Describe subcommands or one specific subcommand
+          dhis2_cli data_value import --dest=DEST --file=FILE  # importing data values from csv file
   ```
 
 ## Heroku namespace
@@ -100,6 +105,16 @@ Add any number of Organisation Units to a given group, creating it if needed. Li
 ```
 
 Non existing ids will be logged and passed, but the process will continue.
+
+## Datavalue namespace
+
+### Import 
+
+Import data values in dhis2. Format of the column of the data element has to be de_periodvalue_dataelementid  (ex: de_2015Q1_abcd321)
+
+```
+./dhis2 datavalue import --dest https://user:password@test-dhis2.org --file data_values.csv
+```
 
 # Contributing
 

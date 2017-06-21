@@ -13,3 +13,6 @@
 Style/StringLiterals:
   Exclude:
     - 'Gemfile'
+
+Metrics/LineLength:
+  Max: 100
