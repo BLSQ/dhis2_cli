@@ -6,7 +6,7 @@ describe DataElementImportHelper do
   describe 'import' do
     let(:dhis2) do
       Dhis2::Client.new(
-        url: "https://play.dhis2.org/demo",
+        url: 'https://play.dhis2.org/demo',
         user: 'admin',
         password: 'district'
       )

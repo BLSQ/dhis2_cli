@@ -10,8 +10,5 @@ class DataElementFile
     end
   end
 
-  def data_elements
-    @data_elements
-  end
-
+  attr_reader :data_elements
 end

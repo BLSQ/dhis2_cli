@@ -1,0 +1,3 @@
+external_path,dhis2_path,level_1,level_2,level_3,level_4,opening_date,groupset_abc123,groupset_xyz123
+,,root,one,two,facility_one,1977-09-30,group1,group2
+,,root,three,four,facility_two,1977-09-30,group1,group3
