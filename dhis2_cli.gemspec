@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pronto'
   spec.add_development_dependency 'pronto-rubocop'
   spec.add_development_dependency 'pronto-flay'
+  spec.add_development_dependency 'simplecov'
 end
