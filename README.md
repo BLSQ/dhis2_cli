@@ -1,5 +1,7 @@
 # DHIS2_CLI
 
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+
 ## Intro  
 
 Dhis2 cli is command line wrapper for quickly maintaining (deploying, cloning...)
