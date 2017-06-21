@@ -5,13 +5,13 @@ describe DataValuesFile do
   let(:csv) { CSV.read(filepath, 'r') }
   subject { DataValuesFile.new(filepath, csv.first, csv.drop(1)) }
 
-  describe 'data_element_headers' do
+  describe 'data_element_headers', :unit do
     it 'does returns the data elements headers' do
       expect(subject.data_element_headers).to eq %w[de_2016_abc321 de_2014Q1_xyz321]
     end
   end
 
-  describe 'data_values_lines' do
+  describe 'data_values_lines', :unit do
     it 'does returns the list of data values with the values and the org unit id' do
       expected_data_values_lines = [
         OpenStruct.new(external_path: nil,
@@ -38,7 +38,7 @@ describe DataValuesFile do
   end
 
   describe 'import' do
-    it 'does returns the list of data values to be imported' do
+    it 'does returns the list of data values to be imported', :unit do
       expected_data_values = [
         { period: '2016', dataElement: 'abc321', value: '324', orgUnit: 'lvPW1gVZxnz' },
         { period: '2014Q1', dataElement: 'xyz321', value: '443', orgUnit: 'lvPW1gVZxnz' },

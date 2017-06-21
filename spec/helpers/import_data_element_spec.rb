@@ -14,7 +14,7 @@ describe DataElementImportHelper do
 
     let(:import_helper) { DataElementImportHelper.new(dhis2) }
 
-    it 'should import the csv file' do
+    it 'should import the csv file', :int do
       entity_file = DataElementFile.new './spec/fixtures/data_elements.csv'
       import_helper.import entity_file
     end

@@ -8,7 +8,7 @@ describe OrgUnitsHelper do
   let(:org_units_helper) { OrgUnitsHelper.new(uri) }
 
   describe 'import' do
-    it 'should insert new org unit into dhis2 from csv file and output an export file' do
+    it 'should insert new org unit into dhis2 from csv file and output an export file', :int do
       org_units_helper.import new_org_units_file
     end
   end

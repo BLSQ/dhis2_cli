@@ -6,10 +6,10 @@ describe DataValuesHelper do
     let(:csv) { CSV.read(filepath, 'r') }
     let(:data_values_file) { DataValuesFile.new(filepath, csv.first, csv.drop(1)) }
     let(:uri) { 'https://admin:district@play.dhis2.org/demo' }
-    let(:data_values_helper) { DataValuesHelper.new(uri) }
+    subject { DataValuesHelper.new(uri) }
 
-    it 'does import the csv file which contains data values' do
-      data_values_helper.import data_values_file
+    it 'does import the csv file which contains data values', :int do
+      subject.import data_values_file
     end
   end
 end
