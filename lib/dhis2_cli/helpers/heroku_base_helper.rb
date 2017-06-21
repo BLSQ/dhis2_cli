@@ -1,4 +1,3 @@
-require 'platform-api'
 # Heroku Helper
 class HerokuBaseHelper
   attr_reader :token

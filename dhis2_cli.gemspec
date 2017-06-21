@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'thor', '~> 0.19'
-  spec.add_dependency 'platform-api', '~> 1.0'
+  spec.add_dependency 'platform-api'
   spec.add_dependency 'dhis2'
   spec.add_dependency 'colorize'
 
