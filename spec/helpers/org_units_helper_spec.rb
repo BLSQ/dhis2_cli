@@ -5,11 +5,11 @@ describe OrgUnitsHelper do
   let(:csv) { CSV.read(filepath, 'r') }
   let(:new_org_units_file) { OrgUnitsFile.new(filepath, csv.first, csv.drop(1)) }
   let(:uri) { 'https://admin:district@dhis2-demo.herokuapp.com' }
-  let(:org_units_helper) { OrgUnitsHelper.new(uri) }
+  subject { OrgUnitsHelper.new(uri) }
 
   describe 'import' do
     it 'should insert new org unit into dhis2 from csv file and output an export file', :int do
-      org_units_helper.import new_org_units_file
+      subject.import new_org_units_file
     end
   end
 end

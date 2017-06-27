@@ -3,7 +3,7 @@ require_relative '../../lib/dhis2_cli'
 describe OrgUnitsFile do
   let(:filepath) { './spec/fixtures/org_units_template.csv' }
   let(:csv) { CSV.read(filepath, 'r') }
-  let(:org_units_file) { OrgUnitsFile.new(filepath, csv.first, csv.drop(1)) }
+  subject { OrgUnitsFile.new(filepath, csv.first, csv.drop(1)) }
 
   def traverse(candidate)
     result = []
@@ -16,7 +16,7 @@ describe OrgUnitsFile do
 
   describe 'level_headers', :unit do
     it 'does return the level headers' do
-      expect(org_units_file.level_headers).to eq %w(level_1 level_2 level_3)
+      expect(subject.level_headers).to eq %w(level_1 level_2 level_3)
     end
   end
 
@@ -36,18 +36,18 @@ describe OrgUnitsFile do
                                                  level_3: 'Arendonk',
                                                  facility_name: 'Havn',
                                                  line_number: 2)]
-      expect(org_units_file.candidate_lines).to eq expected_candidate_lines
+      expect(subject.candidate_lines).to eq expected_candidate_lines
     end
   end
 
   describe 'root' do
     it 'does return a valid tree', :unit do
       expected_order = %w(Belgique Bruxelles Watermael Anvers Arendonk)
-      expect(traverse(org_units_file.root)).to eq expected_order
+      expect(traverse(subject.root)).to eq expected_order
     end
 
     it 'does return the root element of a tree', :unit do
-      expect(org_units_file.root.name).to eq 'Belgique'
+      expect(subject.root.name).to eq 'Belgique'
     end
   end
 end

@@ -41,12 +41,12 @@ class OrgUnitsFile
   private
 
   def build_candidates
-    level_headers[0..-1].map do |level_header|
+    level_headers[0..-1].flat_map do |level_header|
       is_facility = (@level_headers.last == level_header)
-      candidate_lines.map do |candidate_line|
+      candidate_lines.flat_map do |candidate_line|
         OrgUnitCandidate.new(candidate_line, level_header, is_facility)
       end.uniq
-    end.flatten
+    end
   end
 
   def build_flattened_tree
