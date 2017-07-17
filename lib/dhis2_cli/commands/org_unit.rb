@@ -40,7 +40,7 @@ class OrgUnit < Thor
   def import
     lines = CSV.read(options[:file], 'r')
     headers = lines.shift
-    org_units_file = OrgUnitsFile.new(headers, lines)
+    org_units_file = OrgUnitsFile.new(options[:file],headers, lines)
     import_helper = ImportHelper.new options[:dest]
     import_helper.import org_units_file
    end
