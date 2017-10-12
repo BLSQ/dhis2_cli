@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-require 'uri'
-require 'dhis2'
+require "uri"
+require "dhis2"
 
 # DHIS2 helper class
 class DHIS2Helper
@@ -8,10 +8,11 @@ class DHIS2Helper
 
   def initialize(uri)
     uri = URI.parse(uri)
-    @url = "#{uri.scheme}://#{uri.host}/#{uri.path}"
-    @client = Dhis2::Client.new(url: url,
-                                user: uri.user,
-                                password: uri.password)
+    @url = "#{uri.scheme}://#{uri.host}:#{uri.port}#{uri.path}"
+    @client = Dhis2::Client.new(url:      url,
+                                user:     uri.user,
+                                password: uri.password,
+                                debug:    ENV["DEBUG"] == "true")
   end
 
   def max_level
@@ -26,7 +27,7 @@ class DHIS2Helper
     org_units.each_with_index do |ou_id, index|
       puts "Adding organisation unit #{ou_id} (#{index + 1}/#{org_units.size})"
       begin
-        group.add_relation('organisationUnits', ou_id)
+        group.add_relation("organisationUnits", ou_id)
       rescue
         puts "Organisation unit #{ou_id} not found, passing"
       end
@@ -65,9 +66,9 @@ class DHIS2Helper
   end
 
   def org_units(level)
-    @client.organisation_units.list(filter: "level:eq:#{level}",
-                                    fields: %w(id displayName shortName
-                                               openingDate parent),
+    @client.organisation_units.list(filter:    "level:eq:#{level}",
+                                    fields:    %w[id displayName shortName
+                                                  openingDate parent],
                                     page_size: 100_000)
   end
 

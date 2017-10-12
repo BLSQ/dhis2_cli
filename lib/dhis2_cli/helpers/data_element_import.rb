@@ -46,10 +46,10 @@ class DataElementImportHelper
         de.dhis2_dataset_id = dataset.id
       end
 
-      missing_ids = desired_data_elements.map(&:dhis2_id) - dataset.data_set_elements.map { |dse| dse['data_element']['id'] }
+      missing_ids = desired_data_elements.map(&:dhis2_id) - dataset.data_set_elements.map { |dse| dse["data_element"]["id"] }
 
       missing_ids.each do |de_dhis2_id|
-        dataset.data_set_elements.push('data_element' => { 'id' => de_dhis2_id })
+        dataset.data_set_elements.push("data_element" => { "id" => de_dhis2_id })
       end
       puts "adding elements #{missing_ids} to dataset #{dataset.id}"
       dataset.update
@@ -64,7 +64,7 @@ class DataElementImportHelper
 
   def to_csv(elements)
     csv_string = CSV.generate do |csv|
-      headers = %i(dhis2_id data_set_name dhis2_dataset_id de_name value ignored)
+      headers = %i[dhis2_id data_set_name dhis2_dataset_id de_name value ignored]
       csv << headers
       elements.each do |to_create|
         csv << headers.map { |k| to_create[k] }
@@ -76,11 +76,11 @@ class DataElementImportHelper
   def create_missing(elements)
     to_create = elements.select { |de| de.dhis2_id.nil? }.map do |de|
       {
-        code: de.de_name[0..49],
-        name: de.de_name,
-        short_name: de.de_name[0..49],
-        domainType: 'AGGREGATE',
-        value_type: 'INTEGER',
+        code:              de.de_name[0..49],
+        name:              de.de_name,
+        short_name:        de.de_name[0..49],
+        domainType:        "AGGREGATE",
+        value_type:        "INTEGER",
         zeroIsSignificant: true
       }
     end
@@ -98,7 +98,7 @@ class DataElementImportHelper
     candidates.map do |de_candidate|
       # workaround to have an idempotent csv (without prefix-suffix)
       if de_candidate.prefix || de_candidate.name
-        de_name = [de_candidate.prefix, de_candidate.name].compact.join(' ')
+        de_name = [de_candidate.prefix, de_candidate.name].compact.join(" ")
         de_candidate[:de_name] = de_name
       end
 
@@ -109,7 +109,7 @@ class DataElementImportHelper
 
       next unless valid(de_candidate)
 
-      de_candidate[:value] = de_candidate.value.to_s.delete('F').delete(',').strip.to_i if de_candidate.value
+      de_candidate[:value] = de_candidate.value.to_s.delete("F").delete(",").strip.to_i if de_candidate.value
 
       de_candidate
     end.compact
@@ -117,7 +117,7 @@ class DataElementImportHelper
 
   def valid(de)
     puts "too long #{de_candidate}" if de.de_name.size > 199
-    de.data_set_name != '' && !de.data_set_name.nil? && !de.de_name.nil? && de.de_name.size <= 199
+    de.data_set_name != "" && !de.data_set_name.nil? && !de.de_name.nil? && de.de_name.size <= 199
   end
 
   def index_by(hash, prop)

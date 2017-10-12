@@ -5,7 +5,7 @@ class OrgUnitCandidate
   def initialize(entity, level_header, is_facility)
     @entity = entity
     @name = entity[level_header]
-    @level = level_header.gsub('level_', '')
+    @level = level_header.gsub("level_", "")
     @facility = is_facility
     @children = Set.new
     @opening_date = entity[:opening_date] if @facility
@@ -37,7 +37,8 @@ class OrgUnitCandidate
   end
 
   def create_path(candidate)
+    return nil unless candidate.dhis2_id
     return candidate.dhis2_id unless candidate.parent
-    create_path(candidate.parent) + '/' + candidate.dhis2_id
+    create_path(candidate.parent) + "/" + candidate.dhis2_id
   end
 end

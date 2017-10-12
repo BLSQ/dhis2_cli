@@ -10,11 +10,11 @@ class OrgUnitsFile
   end
 
   def level_headers
-    @level_headers ||= @headers.select { |header| header.start_with?('level') }
+    @level_headers ||= @headers.select { |header| header.start_with?("level") }
   end
 
   def groupset_headers
-    @group_headers ||= @headers.select { |header| header.start_with?('groupset') }
+    @group_headers ||= @headers.select { |header| header.start_with?("groupset") }
   end
 
   def candidate_lines
@@ -59,7 +59,7 @@ class OrgUnitsFile
       previous_parent = nil
       level_headers.each do |level_header|
         name = candidate_line[level_header]
-        level = level_header.gsub('level_', '').to_i
+        level = level_header.gsub("level_", "").to_i
         parent = candidates_by_level_name[[level.to_s, name]]
         if level_header == level_headers.last
           child = candidates_by_level_name[[level.to_s, name]]

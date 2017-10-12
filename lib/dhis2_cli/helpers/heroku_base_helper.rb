@@ -3,12 +3,12 @@ class HerokuBaseHelper
   attr_reader :token
   attr_reader :heroku
 
-  SUPPORTED_DB_PLAN = ['hobby-dev', 'hobby-basic'].freeze
-  SUPPORTED_DHIS2 = ['2.21', '2.22', '2.23', '2.24', '2.25', '2.26'].freeze
+  SUPPORTED_DB_PLAN = ["hobby-dev", "hobby-basic"].freeze
+  SUPPORTED_DHIS2 = ["2.21", "2.22", "2.23", "2.24", "2.25", "2.26"].freeze
 
   def initialize(token = nil)
-    @token = token || ENV['HEROKU_TOKEN']
-    @collaborators = ENV['DHIS2_CLI_COLLABORATORS'] || []
+    @token = token || ENV["HEROKU_TOKEN"]
+    @collaborators = ENV["DHIS2_CLI_COLLABORATORS"] || []
     @heroku = PlatformAPI.connect_oauth(@token)
   end
 
@@ -25,9 +25,9 @@ class HerokuBaseHelper
   end
 
   def add_collaborators(app_name)
-    @collaborators.split(',').each do |email|
+    @collaborators.split(",").each do |email|
       heroku.collaborator.create(app_name,
-                                 'user' => { 'email' => email.to_s })
+                                 "user" => { "email" => email.to_s })
     end
   end
 end

@@ -1,6 +1,6 @@
 # OrgUnit command
 class OrgUnit < Thor
-  desc 'copy', 'copy orgunits from one instance to another'
+  desc "copy", "copy orgunits from one instance to another"
   option :source, required: true
   option :dest, required: true
   def copy
@@ -13,7 +13,7 @@ class OrgUnit < Thor
     end
   end
 
-  desc 'add-to-group', 'add org units to a given group (creating it if not existing)'
+  desc "add-to-group", "add org units to a given group (creating it if not existing)"
   option :name, required: true
   option :filename, required: true
   option :dest, required: true
@@ -34,14 +34,17 @@ class OrgUnit < Thor
     puts "Done. Group #{group.name} has now #{group.organisation_units.size} units (from #{org_unit_number_before}).".green
   end
 
-  desc 'import', 'importing org units from csv file'
+  desc "import", "importing org units from csv file"
   option :file, required: true
   option :dest, required: true
   def import
-    lines = CSV.read(options[:file], 'r')
+    lines = CSV.read(options[:file], "r")
     headers = lines.shift
-    org_units_file = OrgUnitsFile.new(options[:file],headers, lines)
-    import_helper = ImportHelper.new options[:dest]
-    import_helper.import org_units_file
+    org_units_file = OrgUnitsFile.new(options[:file], headers, lines)
+    import_helper = OrgUnitsHelper.new options[:dest]
+    import_helper.import(org_units_file)
+    exported_file = "#{options[:file]}-exported.csv"
+    puts "see #{exported_file}".green
+    import_helper.export(org_units_file, exported_file)
    end
 end

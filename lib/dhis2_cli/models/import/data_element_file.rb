@@ -1,8 +1,8 @@
-require 'csv'
+require "csv"
 class DataElementFile
   def initialize(file_path)
     @file_path = file_path
-    @headers = CSV.open(@file_path, 'r', &:first)
+    @headers = CSV.open(@file_path, "r", &:first)
     lines = CSV.read(@file_path)
     lines.shift
     @data_elements = lines.each_with_index.map do |entity_line, index|
