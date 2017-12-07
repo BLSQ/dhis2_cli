@@ -7,8 +7,8 @@ class HerokuBaseHelper
   SUPPORTED_DHIS2 = ["2.21", "2.22", "2.23", "2.24", "2.25", "2.26"].freeze
 
   def initialize(token = nil)
-    @token = token || ENV["HEROKU_TOKEN"]
-    @collaborators = ENV["DHIS2_CLI_COLLABORATORS"] || []
+    @token = token || ENV["HEROKU_TOKEN"] || `heroku auth:token`
+    @collaborators = ENV["DHIS2_CLI_COLLABORATORS"] || ""
     @heroku = PlatformAPI.connect_oauth(@token)
   end
 
