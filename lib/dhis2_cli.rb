@@ -1,6 +1,5 @@
 require "thor"
 require "dhis2"
-require "byebug"
 require "platform-api"
 require_relative "dhis2_cli/commands/org_unit"
 require_relative "dhis2_cli/commands/heroku"
